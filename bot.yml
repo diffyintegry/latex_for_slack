@@ -11,5 +11,6 @@ config:
     info: See https://docs.python.org/2/library/logging.html#levels
     default: 
   - name: BEEPBOOP_RESOURCER
+    default: http://resourcer/ws
 screenshots:
   - screenshot: resources/screenshot1.png
