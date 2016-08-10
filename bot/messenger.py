@@ -7,7 +7,13 @@ logger = logging.getLogger(__name__)
 class Messenger(object):
     def __init__(self, slack_clients):
         self.clients = slack_clients
-
+    
+    def render_latex(self, channel_id, img):
+        if isinstance(channel_id, dict):
+            channel_id = channel_id['id']
+        logger.debug('Sending image: to channel: {}'.format(channel_id))
+        channel = self.clients.rtm.server.channels.find(channel_id)
+        channel.send_message('sorry, not implemented yet')
     def send_message(self, channel_id, msg):
         # in the case of Group and Private channels, RTM channel payload is a complex dictionary
         if isinstance(channel_id, dict):

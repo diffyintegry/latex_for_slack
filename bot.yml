@@ -5,12 +5,5 @@ author_avatar: resources/author_avatar.png
 email: nicholas.comment+beepboop@gmail.com
 avatar: resources/avatar.png
 background: resources/background.png
-config:
-  - name: slacklatexpyt
-    friendly_name: 
-    info: See https://docs.python.org/2/library/logging.html#levels
-    default: 
-  - name: BEEPBOOP_RESOURCER
-    default: http://resourcer/ws
 screenshots:
   - screenshot: resources/screenshot1.png
