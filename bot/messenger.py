@@ -9,6 +9,7 @@ class Messenger(object):
         self.clients = slack_clients
     
     def render_latex(self, channel_id, latex_string):
+	latex_string = latex_string.replace(' ','')
         self.send_message(channel_id, 'http://latex.codecogs.com/png.latex?%5Cdpi%7B300%7D%20'+latex_string)
 
     def send_message(self, channel_id, msg):
