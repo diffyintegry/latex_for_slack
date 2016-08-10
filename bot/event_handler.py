@@ -34,10 +34,13 @@ class RtmEventHandler(object):
 
     def _handle_message(self, event):
         # Filter out messages from the bot itself
-        if not self.clients.is_message_from_me(event['user']):
+        try:
+            if not self.clients.is_message_from_me(event['user']):
 
-            msg_txt = event['text']
+                msg_txt = event['text']
             
-            if event['text'][:5] == 'latex':
-		latex_string = event['text'][6:]
-                self.msg_writer.render_latex(event['channel'], latex_string)
+                if event['text'][:5] == 'latex':
+		    latex_string = event['text'][6:]
+                    self.msg_writer.render_latex(event['channel'], latex_string)
+	except:
+            pass
