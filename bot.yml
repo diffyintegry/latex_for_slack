@@ -10,5 +10,6 @@ config:
     friendly_name: 
     info: See https://docs.python.org/2/library/logging.html#levels
     default: 
+  - name: BEEPBOOP_RESOURCER
 screenshots:
   - screenshot: resources/screenshot1.png
