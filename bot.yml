@@ -1,7 +1,7 @@
 name: LaTeX RenderBot
 description: A LaTeX equation renderer for Beep Boop slackbot
 author: Nick&Leah Comment
-author_avatar: images/author_avatar.png
+author_avatar: resources/author_avatar.png
 email: nicholas.comment+beepboop@gmail.com
 avatar: resources/avatar.png
 background: resources/background.png
