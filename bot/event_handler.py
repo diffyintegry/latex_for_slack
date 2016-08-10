@@ -39,4 +39,5 @@ class RtmEventHandler(object):
             msg_txt = event['text']
             
             if event['text'][:5] == 'latex':
-                self.msg_writer.render_latex(event['channel'])
+		latex_string = event['text'][6:]
+                self.msg_writer.render_latex(event['channel'], latex_string)
