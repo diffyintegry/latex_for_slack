@@ -14,14 +14,14 @@ logger = logging.getLogger(__name__)
 from flask import Flask
 
 
-app=Flask(__name__)
+flaskApp=Flask(__name__)
 
-@app.route("/", method=['GET','POST'])
+@flaskApp.route("/", method=['GET','POST'])
 def temp():
     print 'it worked!'
 
 if __name__=='__main__':
-    app.run()
+    flaskApp.run()
 
 
 
