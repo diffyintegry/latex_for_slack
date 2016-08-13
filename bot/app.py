@@ -16,7 +16,7 @@ from flask import Flask
 
 flaskApp=Flask(__name__)
 
-@flaskApp.route("/", methods = ['GET','POST'])
+@flaskApp.route("/latex", methods = ['GET','POST'])
 def temp():
     print 'it worked!'
 
