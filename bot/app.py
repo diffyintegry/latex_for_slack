@@ -16,7 +16,7 @@ from flask import request
 
 flaskApp=Flask(__name__)
 
-@flaskApp.route("/latex", methods = ['GET','POST'])
+@flaskApp.route("/command", methods = ['GET','POST'])
 def temp():
     logging.info(request)
     logging.info('it worked!')
