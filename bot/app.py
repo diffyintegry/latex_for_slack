@@ -11,9 +11,21 @@ from slack_bot import spawn_bot
 
 logger = logging.getLogger(__name__)
 
+rom flask import Flask
+
+
+app=Flask(__name__)
+
+@app.route("/", method=['GET','POST'])
+def temp():
+    print 'it worked!'
+
+if __name__=='__main__':
+    app.run()
+
+
 
 if __name__ == "__main__":
-
     log_level = os.getenv("LOG_LEVEL", "INFO")
     logging.basicConfig(format='%(asctime)s - %(levelname)s: %(message)s', level=log_level)
 
