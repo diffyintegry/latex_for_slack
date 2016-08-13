@@ -36,7 +36,7 @@ def temp():
                        ]
                     }
         headers = {'content-type':'application/json'}
-        requests.post(request.form['reply_url'], data = payload, headers = headers)
+#        requests.post(request.form['reply_url'], data = payload, headers = headers)
     return ''
 
 
