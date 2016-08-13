@@ -14,13 +14,17 @@ logger = logging.getLogger(__name__)
 from flask import Flask
 from flask import request
 
+_latex_url = 'http://latex.codecogs.com/png.latex?%5Cdpi%7B300%7D%20'
+
 flaskApp=Flask(__name__)
 
 @flaskApp.route("/slack/command", methods = ['GET','POST'])
 def temp():
     if request.method == 'POST':
         logging.info(request.form)
-        return request.form
+        token = request.form['token']
+        text = request.form['text']
+        return _latex_url + text.replace(' ','')
 
 
 
