@@ -28,8 +28,8 @@ def temp():
     logging.info(request.method)
     try:
         slash_command.process_request(request)
-    except:
-        logging.info('We failed! problem was\n%s' % str(request.form))
+    except Exception as e:
+        logging.info('We failed! problem was\n%s' % e)#% str(request.form))
     return ''
 
 
