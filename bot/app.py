@@ -3,49 +3,35 @@
 import logging
 import os
 
-import requests
-import json
-
 from beepboop import resourcer
 from beepboop import bot_manager
-
-from slack_bot import SlackBot
-from slack_bot import spawn_bot
-
-logger = logging.getLogger(__name__)
 
 from flask import Flask
 from flask import request
 
-_latex_url = 'http://latex.codecogs.com/png.latex?%5Cdpi%7B300%7D%20'
+from slack_bot import SlackBot
+from slack_bot import spawn_bot
+import slash_command
 
-flaskApp=Flask(__name__)
+logger = logging.getLogger(__name__)
+
+_imgurClientID = os.getenv("IMCLID","")
+_imgurSecret = os.getenv("IMSEC","")
+
+
+flaskApp = Flask(__name__)
+    
+
 
 @flaskApp.route("/slack/command", methods = ['GET','POST'])
 def temp():
     logging.info(request.method)
     try:
-        if request.method == 'POST':
-            logging.info(request.form)
-            token = request.form['token']
-            text = request.form['text']
-            logging.info(token + '  ' + text)
-            payload = {
-                        'response_type':'in_channel',
-                        'text':'',
-                        'attachments':[
-                            {
-                            'text':'<%s%s|>' % (_latex_url, text),
-                            'unfurl_media': True,
-                            }
-                           ]
-                        }
-            headers = {'content-type':'application/json'}
-            requests.post(request.form['response_url'], data = json.dumps(payload), headers = headers)
+        slash_command.process_request(request)
     except:
-        logging.info('it failed!')
-        logging.info(str(request.form))
+        logging.info('We failed! problem was\n%s' % str(request.form))
     return ''
+
 
 
 
