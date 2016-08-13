@@ -16,7 +16,7 @@ from flask import Flask
 
 flaskApp=Flask(__name__)
 
-@flaskApp.route("/", method=['GET','POST'])
+@flaskApp.route("/", methods = ['GET','POST'])
 def temp():
     print 'it worked!'
 
