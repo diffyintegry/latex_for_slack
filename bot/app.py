@@ -3,6 +3,8 @@
 import logging
 import os
 
+import requests
+
 from beepboop import resourcer
 from beepboop import bot_manager
 
@@ -24,7 +26,14 @@ def temp():
         logging.info(request.form)
         token = request.form['token']
         text = request.form['text']
-        return _latex_url + text.replace(' ','')
+        payload = {
+                    'response_type':'in_channel',
+                    'text':'',
+                    'attachments':[
+                        _latex_url + text
+                       ]
+                    }
+        requests.post(request.form['reply_url'], payload)
 
 
 
