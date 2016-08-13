@@ -41,7 +41,7 @@ def temp():
             headers = {'content-type':'application/json'}
             requests.post(request.form['reply_url'], data = json.dumps(payload), headers = headers)
     except:
-        logging.info('it failed!")
+        logging.info('it failed!')
         logging.info(str(request.form))
     return ''
 
