@@ -11,7 +11,7 @@ from slack_bot import spawn_bot
 
 logger = logging.getLogger(__name__)
 
-rom flask import Flask
+from flask import Flask
 
 
 app=Flask(__name__)
