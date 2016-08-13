@@ -10,9 +10,11 @@ config:
     friendly_name: Imgur Client ID
     info: Need this to upload images
     default: IMANID
+    type: secret
   - name: IMSEC
     friendly_name: Imgur Client Secret
     info: Need this to upload images
     default: SECRET
+    type: secret
 screenshots:
   - screenshot: resources/screenshot.1.png
