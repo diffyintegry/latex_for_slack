@@ -30,7 +30,9 @@ def temp():
                     'response_type':'in_channel',
                     'text':'',
                     'attachments':[
-                        _latex_url + text
+                        {
+                        'img_url':_latex_url + text,
+                        }
                        ]
                     }
         requests.post(request.form['reply_url'], payload)
