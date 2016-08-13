@@ -35,7 +35,8 @@ def temp():
                         }
                        ]
                     }
-        requests.post(request.form['reply_url'], payload)
+        headers = {'content-type':'application/json'}
+        requests.post(request.form['reply_url'], data = payload, headers = headers)
     return ''
 
 
