@@ -12,12 +12,13 @@ from slack_bot import spawn_bot
 logger = logging.getLogger(__name__)
 
 from flask import Flask
-
+from flask import request
 
 flaskApp=Flask(__name__)
 
 @flaskApp.route("/latex", methods = ['GET','POST'])
 def temp():
+    logging.info(request)
     logging.info('it worked!')
     return "yay"
 
