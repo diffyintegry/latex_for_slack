@@ -34,7 +34,7 @@ def temp():
                        ]
                     }
         requests.post(request.form['reply_url'], payload)
-
+    return ''
 
 
 
