@@ -36,7 +36,7 @@ def temp():
                         'attachments':[
                             {
                             'text':'<%s%s|>' % (_latex_url, text),
-                            'unfurl_links': True,
+                            'unfurl_media': True,
                             }
                            ]
                         }
