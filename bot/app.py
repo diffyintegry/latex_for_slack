@@ -23,21 +23,26 @@ flaskApp=Flask(__name__)
 
 @flaskApp.route("/slack/command", methods = ['GET','POST'])
 def temp():
-    if request.method == 'POST':
-        logging.info(request.form)
-        token = request.form['token']
-        text = request.form['text']
-        payload = {
-                    'response_type':'in_channel',
-                    'text':'',
-                    'attachments':[
-                        {
-                        'img_url':_latex_url + text,
+    logging.info(request.method)
+    try:
+        if request.method == 'POST':
+            logging.info(request.form)
+            token = request.form['token']
+            text = request.form['text']
+            payload = {
+                        'response_type':'in_channel',
+                        'text':'',
+                        'attachments':[
+                            {
+                            'img_url':_latex_url + text,
+                            }
+                           ]
                         }
-                       ]
-                    }
-        headers = {'content-type':'application/json'}
-        requests.post(request.form['reply_url'], data = json.dumps(payload), headers = headers)
+            headers = {'content-type':'application/json'}
+            requests.post(request.form['reply_url'], data = json.dumps(payload), headers = headers)
+    except:
+        logging.info('it failed!")
+        logging.info(str(request.form))
     return ''
 
 
