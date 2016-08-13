@@ -20,8 +20,6 @@ flaskApp=Flask(__name__)
 def temp():
     logging.info('it worked!')
 
-if __name__=='__main__':
-    flaskApp.run()
 
 
 
@@ -31,7 +29,8 @@ if __name__ == "__main__":
 
     slack_token = os.getenv("SLACK_TOKEN", "")
     logging.info("token: {}".format(slack_token))
-    
+    port = os.getenv("PORT","8080")
+    flaskApp.run(port=port)
     
 
     if slack_token == "":
