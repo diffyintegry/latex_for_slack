@@ -4,6 +4,7 @@ import logging
 import os
 
 import requests
+import json
 
 from beepboop import resourcer
 from beepboop import bot_manager
@@ -36,7 +37,7 @@ def temp():
                        ]
                     }
         headers = {'content-type':'application/json'}
-#        requests.post(request.form['reply_url'], data = payload, headers = headers)
+        requests.post(request.form['reply_url'], data = json.dumps(payload), headers = headers)
     return ''
 
 
