@@ -18,9 +18,9 @@ flaskApp=Flask(__name__)
 
 @flaskApp.route("/slack/command", methods = ['GET','POST'])
 def temp():
-    logging.info(request)
-    logging.info('it worked!')
-    return "yay"
+    if request.method == 'POST':
+        logging.info(request.form)
+        return request.form
 
 
 
