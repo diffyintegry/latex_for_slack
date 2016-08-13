@@ -19,6 +19,7 @@ flaskApp=Flask(__name__)
 @flaskApp.route("/latex", methods = ['GET','POST'])
 def temp():
     logging.info('it worked!')
+    return "yay"
 
 
 
@@ -28,9 +29,11 @@ if __name__ == "__main__":
     logging.basicConfig(format='%(asctime)s - %(levelname)s: %(message)s', level=log_level)
 
     slack_token = os.getenv("SLACK_TOKEN", "")
-    logging.info("token: {}".format(slack_token))
     port = os.getenv("PORT","8080")
-    flaskApp.run(port=port)
+
+    logging.info("token: {}".format(slack_token))
+    logging.info("port: {}".format(port))
+    flaskApp.run(host = '0.0.0.0', port=port)
     
 
     if slack_token == "":
