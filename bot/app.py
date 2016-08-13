@@ -29,20 +29,18 @@ def temp():
             logging.info(request.form)
             token = request.form['token']
             text = request.form['text']
-            logging.info(token+text)
+            logging.info(token + '  ' + text)
             payload = {
                         'response_type':'in_channel',
-                        'text':'asdf',
+                        'text':'',
                         'attachments':[
                             {
-                            'img_url':_latex_url + text,
+                            'text':'<' + _latex_url + text + '>',
+                            'unfurl': True,
                             }
                            ]
                         }
-            logging.info(json.dumps(payload))
             headers = {'content-type':'application/json'}
-            logging.info(json.dumps(headers))
-            logging.info(request.form['response_url'])
             requests.post(request.form['response_url'], data = json.dumps(payload), headers = headers)
     except:
         logging.info('it failed!')
