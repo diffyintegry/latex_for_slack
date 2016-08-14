@@ -12,11 +12,11 @@ logger = logging.getLogger(__name__)
 _latex_url = 'http://latex.codecogs.com/png.latex?%5Cdpi%7B300%7D%20'
 
 
-def handle_images(latexString):
+def handle_images(request, latexString):
     ''' takes a latex string and uploads to imgur for the image
     '''
-    imgurClientID = os.getenv('IMCLID','notatoken')
-    imgurSecret = os.getenv('IMSEC','notatokeneither')
+    imgurClientID = request.headers['Bb-Config-Imclid']
+    imgurSecret = request.headers['Bb-Config-Imsec']
     logger.info(imgurClientID + "...." + imgurSecret + ' ...')
 
     imgur = ImgurClient(imgurClientID, imgurSecret)
@@ -44,12 +44,8 @@ def process_request(request):
 
     if request.method == 'POST' and request.form['token'] == correctToken:
         logger.info(str(request.form))
-        try:
-            logger.info(str(request.headers))
-        except:
-            logger.info(str(request.header))
         text = request.form['text']
-        image = handle_images(text)
+        image = handle_images(request, text)
         payload = {
                     'response_type':'in_channel',
                     'text':'',
