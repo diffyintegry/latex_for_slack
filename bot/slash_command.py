@@ -41,7 +41,6 @@ def process_request(request):
         image = handle_images(request, text)
         payload = {
                     'response_type':'in_channel',
-                    '
                     'attachments':[
                         {
                         'author_name':request.form['user_name'],
