@@ -18,6 +18,7 @@ flaskApp = Flask(__name__)
 @flaskApp.route("/slack/command", methods = ['GET','POST'])
 def temp():
     logger.info(request.method)
+    logger.info(os.environ.keys())
     try:
         slash_command.process_request(request)
     except Exception as e:
