@@ -44,7 +44,7 @@ if __name__ == "__main__":
     logging.info("token: {}".format(slack_token))
     logging.info("port: {}".format(port))
     flaskApp.run(host = '0.0.0.0', port=port)
-    
+    logging.info('did i get here?')
 
     if slack_token == "":
         logging.info("SLACK_TOKEN env var not set, expecting token to be provided by Resourcer events")
