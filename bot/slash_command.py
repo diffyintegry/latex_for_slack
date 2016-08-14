@@ -32,11 +32,12 @@ def process_request(request):
                     'username': request.form['user_name'],
                     'attachments':[
                         {
-                        'fallback_text': text,
+                        #'fallback_text': text,
                         'image_url': image,
                         }
                        ]
                     }
+        logger.info(str(payload))
         headers = {'content-type':'application/json'}
         requests.post(request.form['response_url'], data = json.dumps(payload), headers = headers)
 
