@@ -9,8 +9,6 @@ from imgurpython import ImgurClient
 
 _latex_url = 'http://latex.codecogs.com/png.latex?%5Cdpi%7B300%7D%20'
 
-imgur = ImgurClient(_imgurClientID, _imgurSecret)
-
 
 def handle_images(latexString):
     ''' takes a latex string and uploads to imgur for the image
