@@ -32,11 +32,6 @@ def handle_images(request, latexString):
 
 
 
-def get_client_and_secret(request):
-    ''' goes into headers and gets stuff
-    '''
-    
-
 
 
 def process_request(request):
