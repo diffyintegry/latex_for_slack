@@ -18,9 +18,6 @@ def handle_images(request, latexString):
     return _latex_url.format(latex=latexString.replace(' ',''))
 
 
-
-
-
 def process_request(request):
     correctToken = os.getenv('SLACK_VERIFY_TOKEN','')
 
@@ -30,9 +27,11 @@ def process_request(request):
         image = handle_images(request, text)
         payload = {
                     'response_type':'in_channel',
-                    'text':image,
+                    'text': text,
                     'attachments':[
                         {
+                        'fallback_text': text,
+                        'author_name': 'LaTeX Bot',
                         'image_url': image,
                         }
                        ]
