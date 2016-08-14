@@ -9,26 +9,13 @@ from imgurpython import ImgurClient
 logger = logging.getLogger(__name__)
 
 
-_latex_url = 'http://latex.codecogs.com/png.latex?%5Cdpi%7B300%7D%20'
+_latex_url = 'http://chart.apis.google.com/chart?cht=tx&chl={latex}'
 
 
 def handle_images(request, latexString):
     ''' takes a latex string and uploads to imgur for the image
     '''
-    imgurClientID = request.headers['Bb-Config-Imclid']
-    imgurSecret = request.headers['Bb-Config-Imsec']
-    logger.info(imgurClientID + "...." + imgurSecret + ' ...')
-
-    imgur = ImgurClient(imgurClientID, imgurSecret)
-    latexImageDownload = _latex_url + latexString.replace(' ','')
-    latexImage = requests.get(latexImageDownload).content
-    data = {
-            'image': base64.b64encode(latexImage),
-            'type': 'base64',
-            }
-    imageData = imgur.make_request('POST','upload',data,True)
-    latexImageLocation = imageData['link']
-    return latexImageLocation
+    return _latex_url.format(latex=latexString.replace(' ',''))
 
 
 
