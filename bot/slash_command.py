@@ -13,8 +13,8 @@ _latex_url = 'http://latex.codecogs.com/png.latex?%5Cdpi%7B300%7D%20'
 def handle_images(latexString):
     ''' takes a latex string and uploads to imgur for the image
     '''
-    imgurClientID = os.getenv("IMCLID","")
-    imgurSecret = os.getenv("IMSEC","")
+    imgurClientID = os.getenv("IMCLID","notatoken")
+    imgurSecret = os.getenv("IMSEC","notatokeneither")
     imgur = ImgurClient(imgurClientID, imgurSecret)
     latexImageDownload = _latex_url + latexString.replace(' ','')
     latexImage = requests.get(latexImageDownload).content
