@@ -28,9 +28,8 @@ def temp():
     try:
         slash_command.process_request(request)
     except Exception as e:
-        logging.info('We failed! problem was\n%s' % e)#% str(request.form))
+        logging.info('We failed! problem was\n%s' % e)
     return ''
-
 
 
 
@@ -40,6 +39,7 @@ if __name__ == "__main__":
     logging.info(str(os.environ))
     slack_token = os.getenv("SLACK_TOKEN", "")
     port = os.getenv("PORT","8080")
+    
 
     logging.info("token: {}".format(slack_token))
     logging.info("port: {}".format(port))

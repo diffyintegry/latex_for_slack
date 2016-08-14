@@ -1,6 +1,7 @@
 import json
 import logging
 import re
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -29,6 +30,18 @@ class RtmEventHandler(object):
         elif event_type == 'group_joined':
             # you joined a private group
             self.msg_writer.write_help_message(event['channel'])
+        elif event_type in ('add_resource', 'update_resource'):
+            # new resourced added
+            if 'IMCLID' in event['resource']:
+                key = 'IMCLID'
+                value = event['resource']['IMCLID']
+            elif 'IMSEC' in event['resource']:
+                key = 'IMSEC'
+                value = event['resource']['IMSEC']
+            else:
+                key = 'THISISAGARBAGEVARIABLE'
+                value = 'IAMGARBAGE'
+            os.environ[key] = value
         else:
             pass
 
