@@ -6,9 +6,6 @@ import json
 from imgurpython import ImgurClient
 
 
-_correctToken = os.getenv("SLACK_VERIFY_TOKEN","")
-_imgurClientID = os.getenv("IMCLID","")
-_imgurSecret = os.getenv("IMSEC","")
 
 _latex_url = 'http://latex.codecogs.com/png.latex?%5Cdpi%7B300%7D%20'
 
@@ -18,6 +15,9 @@ imgur = ImgurClient(_imgurClientID, _imgurSecret)
 def handle_images(latexString):
     ''' takes a latex string and uploads to imgur for the image
     '''
+    imgurClientID = os.getenv("IMCLID","")
+    imgurSecret = os.getenv("IMSEC","")
+    imgur = ImgurClient(imgurClientID, imgurSecret)
     latexImageDownload = _latex_url + latexString.replace(' ','')
     latexImage = requests.get(latexImageDownload).content
     data = {
@@ -31,7 +31,9 @@ def handle_images(latexString):
 
 
 def process_request(request):
-    if request.method == 'POST' and request.form['token'] == _correctToken:
+    correctToken = os.getenv("SLACK_VERIFY_TOKEN","")
+
+    if request.method == 'POST' and request.form['token'] == correctToken:
         text = request.form['text']
         image = handle_images(text)
         payload = {
