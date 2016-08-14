@@ -17,8 +17,8 @@ def handle_images(latexString):
     '''
     imgurClientID = os.getenv('IMCLID','notatoken')
     imgurSecret = os.getenv('IMSEC','notatokeneither')
-    logger.info(imgurClientID + "...." + imgurClientID + ' ...')
-    logger.info(request.method)
+    logger.info(imgurClientID + "...." + imgurSecret + ' ...')
+
     imgur = ImgurClient(imgurClientID, imgurSecret)
     latexImageDownload = _latex_url + latexString.replace(' ','')
     latexImage = requests.get(latexImageDownload).content
