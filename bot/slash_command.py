@@ -15,6 +15,7 @@ _latex_url = 'http://chart.apis.google.com/chart?cht=tx&chl={latex}'
 def handle_images(request, latexString):
     ''' takes a latex string and uploads to imgur for the image
     '''
+    
     return _latex_url.format(latex=latexString.replace(' ',''))
 
 
@@ -28,8 +29,7 @@ def process_request(request):
         image = handle_images(request, text)
         payload = {
                     'response_type':'in_channel',
-                    'text': text,
-                    'username': 'latexbot',
+                    'username': request.form['user_name'],
                     'attachments':[
                         {
                         'fallback_text': text,
