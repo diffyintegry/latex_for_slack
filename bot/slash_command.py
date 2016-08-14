@@ -32,10 +32,22 @@ def handle_images(latexString):
 
 
 
+def get_client_and_secret(request):
+    ''' goes into headers and gets stuff
+    '''
+    
+
+
+
 def process_request(request):
     correctToken = os.getenv('SLACK_VERIFY_TOKEN','')
 
     if request.method == 'POST' and request.form['token'] == correctToken:
+        logger.info(str(request.form))
+        try:
+            logger.info(str(request.headers))
+        except:
+            logger.info(str(request.header))
         text = request.form['text']
         image = handle_images(text)
         payload = {
