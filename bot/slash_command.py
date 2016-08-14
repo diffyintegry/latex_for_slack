@@ -38,13 +38,13 @@ def process_request(request):
         logger.info(str(request.form))
         text = request.form['text']
         logger.info(str(request.form))
-        image = handle_images(request, text)
+        image = str(handle_images(request, text))
         payload = {
                     'response_type':'in_channel',
                     'username':request.form['user_name'],
                     'attachments':[
                         {
-                        'text': u'<imgurLaTeX|%s>' & image,
+                        'text': '<imgurLaTeX|%s>' & image,
                         'fallback': text,
                         'image_url': image,
                         }
