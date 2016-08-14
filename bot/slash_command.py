@@ -44,7 +44,7 @@ def process_request(request):
                     'username': request.form['user_name'],
                     'attachments':[
                         {
-                        #'fallback_text': text,
+                        'text': text,
                         'image_url': image,
                         }
                        ]
