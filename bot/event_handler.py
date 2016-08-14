@@ -32,6 +32,7 @@ class RtmEventHandler(object):
             self.msg_writer.write_help_message(event['channel'])
         elif event_type in ('add_resource', 'update_resource'):
             # new resourced added
+            logging.info(str(event['resource']))
             if 'IMCLID' in event['resource']:
                 key = 'IMCLID'
                 value = event['resource']['IMCLID']
