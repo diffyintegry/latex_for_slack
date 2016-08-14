@@ -17,10 +17,7 @@ flaskApp = Flask(__name__)
 
 @flaskApp.route("/slack/command", methods = ['GET','POST'])
 def temp():
-    _imgurClientID = os.getenv("IMCLID","")
-    _imgurSecret = os.getenv("IMSEC","")
-    logging.info(_imgurClientID + "...." + _imgurClientID + ' ...')
-    logging.info(request.method)
+    logger.info(request.method)
     try:
         slash_command.process_request(request)
     except Exception as e:

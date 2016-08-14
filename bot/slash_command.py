@@ -2,9 +2,11 @@ import os
 import base64
 import requests
 import json
+import logging
 
 from imgurpython import ImgurClient
 
+logger = logging.getLogger(__name__)
 
 
 _latex_url = 'http://latex.codecogs.com/png.latex?%5Cdpi%7B300%7D%20'
@@ -13,8 +15,10 @@ _latex_url = 'http://latex.codecogs.com/png.latex?%5Cdpi%7B300%7D%20'
 def handle_images(latexString):
     ''' takes a latex string and uploads to imgur for the image
     '''
-    imgurClientID = os.getenv("IMCLID","notatoken")
-    imgurSecret = os.getenv("IMSEC","notatokeneither")
+    imgurClientID = os.getenv('IMCLID','notatoken')
+    imgurSecret = os.getenv('IMSEC','notatokeneither')
+    logger.info(imgurClientID + "...." + imgurClientID + ' ...')
+    logger.info(request.method)
     imgur = ImgurClient(imgurClientID, imgurSecret)
     latexImageDownload = _latex_url + latexString.replace(' ','')
     latexImage = requests.get(latexImageDownload).content
@@ -29,7 +33,7 @@ def handle_images(latexString):
 
 
 def process_request(request):
-    correctToken = os.getenv("SLACK_VERIFY_TOKEN","")
+    correctToken = os.getenv('SLACK_VERIFY_TOKEN','')
 
     if request.method == 'POST' and request.form['token'] == correctToken:
         text = request.form['text']
