@@ -34,8 +34,6 @@ def process_request(request):
                     'attachments':[
                         {
                         'image_url': image,
-                        'unfurl_media': True,
-                        'unfurl_link': True,
                         }
                        ]
                     }
