@@ -6,30 +6,12 @@ import os
 from beepboop import resourcer
 from beepboop import bot_manager
 
-from flask import Flask
-from flask import request
+
 
 from slack_bot import SlackBot
 from slack_bot import spawn_bot
-import slash_command
 
 logger = logging.getLogger(__name__)
-
-flaskApp = Flask(__name__)
-    
-
-
-@flaskApp.route("/slack/command", methods = ['GET','POST'])
-def temp():
-    _imgurClientID = os.getenv("IMCLID","")
-    _imgurSecret = os.getenv("IMSEC","")
-    logging.info(_imgurClientID + "...." + _imgurClientID + ' ...')
-    logging.info(request.method)
-    try:
-        slash_command.process_request(request)
-    except Exception as e:
-        logging.info('We failed! problem was\n%s' % e)
-    return ''
 
 
 
@@ -43,8 +25,7 @@ if __name__ == "__main__":
 
     logging.info("token: {}".format(slack_token))
     logging.info("port: {}".format(port))
-    flaskApp.run(host = '0.0.0.0', port=port)
-    logging.info('did i get here?')
+
 
     if slack_token == "":
         logging.info("SLACK_TOKEN env var not set, expecting token to be provided by Resourcer events")
