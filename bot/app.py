@@ -15,10 +15,6 @@ import slash_command
 
 logger = logging.getLogger(__name__)
 
-_imgurClientID = os.getenv("IMCLID","")
-_imgurSecret = os.getenv("IMSEC","")
-
-
 flaskApp = Flask(__name__)
     
 
@@ -27,7 +23,8 @@ flaskApp = Flask(__name__)
 def temp():
     _imgurClientID = os.getenv("IMCLID","")
     _imgurSecret = os.getenv("IMSEC","")
-    logging.info(_imgurClientID + "...." + _imgurClientID)
+    _test_field
+    logging.info(_imgurClientID + "...." + _imgurClientID + ' ....' + _test_field)
     logging.info(request.method)
     try:
         slash_command.process_request(request)
