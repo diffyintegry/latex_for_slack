@@ -44,7 +44,7 @@ def process_request(request):
                     'username':request.form['user_name'],
                     'attachments':[
                         {
-                        'text': '<imgurLaTeX|%s>' & image,
+                        'text': u'<imgurLaTeX|%s>' & image,
                         'fallback': text,
                         'image_url': image,
                         }
