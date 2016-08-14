@@ -24,14 +24,15 @@ def process_request(request):
     if request.method == 'POST' and request.form['token'] == correctToken:
         logger.info(str(request.form))
         text = request.form['text']
+        logger.info(str(request.form))
         image = handle_images(request, text)
         payload = {
                     'response_type':'in_channel',
                     'text': text,
+                    'username': 'latexbot',
                     'attachments':[
                         {
                         'fallback_text': text,
-                        'author_name': 'LaTeX Bot',
                         'image_url': image,
                         }
                        ]
