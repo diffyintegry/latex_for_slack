@@ -20,7 +20,7 @@ def handle_images(request, latexString):
     logger.info(imgurClientID + "...." + imgurSecret + ' ...')
 
     imgur = ImgurClient(imgurClientID, imgurSecret)
-    latexImageDownload = _latex_url + latexString.replace(' ','')
+    latexImageDownload = _latex_url.format(latex = latexString.replace(' ',''))
     latexImage = requests.get(latexImageDownload).content
     data = {
             'image': base64.b64encode(latexImage),
@@ -41,10 +41,12 @@ def process_request(request):
         image = handle_images(request, text)
         payload = {
                     'response_type':'in_channel',
-                    'username': request.form['user_name'],
+                    '
                     'attachments':[
                         {
+                        'author_name':request.form['user_name'],
                         'text': text,
+                        'fallback': text,
                         'image_url': image,
                         }
                        ]
