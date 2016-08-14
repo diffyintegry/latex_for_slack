@@ -12,13 +12,12 @@ class RtmEventHandler(object):
         self.msg_writer = msg_writer
 
     def handle(self, event):
-        logger.info(str(event))
+        #logger.info(str(event))
         if 'type' in event:
-            logger.info('this is handled')
+            #logger.info('this is handled')
             self._handle_by_type(event['type'], event)
 
     def _handle_by_type(self, event_type, event):
-        logger.info(str(event))
         # See https://api.slack.com/rtm for a full list of events
         if event_type == 'error':
             # error
