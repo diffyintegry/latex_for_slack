@@ -33,7 +33,7 @@ def process_request(request):
                     'text':'',
                     'attachments':[
                         {
-                        'text': '<%s|Your LaTeX image!>' % image,
+                        'image_url': '<%s|Your LaTeX image!>' % image,
                         'unfurl_media': True,
                         'unfurl_link': True,
                         }
