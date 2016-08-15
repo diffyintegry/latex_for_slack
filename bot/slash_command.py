@@ -40,6 +40,38 @@ def handle_images(slackRequest, latexString):
     return latexImageLocation    
 
 
+def payload_maker(slackRequest):
+    ''' Delivers the payload depending on whether the webhooks has been set up or not
+    '''
+    webhooksURL = slackRequest.form['response_url']
+    text = slackRequest.form['text']
+    image = handle_images(slackRequest, text)
+    payload = {
+                'response_type': 'in_channel',
+                'text': '/latex %s' % text,
+                'attachments': [
+                    {
+                    'text': ' ',
+                    'fallback': text,
+                    'image_url': image,
+                    }
+                   ]
+                }
+    if 'Bb-Config-Webhooks' in slackRequest.headers and slackRequest.headers['Bb-Config-Webhooks']:
+        webhooksURL = slackRequest.headers['Bb-Config-Webhooks']
+        username = slackRequest.form['user_name']
+        icon = get_usericon(slackRequest)
+        channel = slackRequest.form['channel_id']
+        payload.update({
+                        'channel': channel,
+                        'username': username,
+                        'icon_url': icon,
+                        })
+    return webhooksURL, payload
+        
+                        
+        
+
 def process_request(slackRequest):
     correctToken = os.getenv('SLACK_VERIFY_TOKEN','')
     if slackRequest.method == 'POST' and slackRequest.form['token'] == correctToken:
@@ -47,30 +79,9 @@ def process_request(slackRequest):
         logger.info('POST form: %s' % slackRequest.form)
         logger.info('POST headers: %s' % slackRequest.headers)
         # data collection
-        text = slackRequest.form['text']
-        image = handle_images(slackRequest, text)
-        webhooksURL = slackRequest.headers['Bb-Config-Webhooks']
-        username = slackRequest.form['user_name']
-        icon = get_usericon(slackRequest)
-        #TODO: implement user avatar
-
-        channel = slackRequest.form['channel_id']
-        payload = {
-                    'response_type': 'in_channel',
-                    'username': username,
-                    'icon_url': icon,
-                    'channel': channel,
-                    'text': '/latex %s' % text,
-                    'attachments': [
-                        {
-                        'text': ' ',
-                        'fallback': text,
-                        'image_url': image,
-                        }
-                       ]
-                    }
+        url, payload = payload_maker(slackRequest)
         logger.info(str(payload))
         headers = {'content-type':'application/json'}
-        requests.post(webhooksURL, data = json.dumps(payload), headers = headers)
+        requests.post(url, data = json.dumps(payload), headers = headers)
 
 
