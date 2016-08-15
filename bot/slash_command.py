@@ -11,7 +11,7 @@ _latex_url = 'http://chart.apis.google.com/chart?cht=tx&chl={latex}'
 def get_usericon(slackRequest):
     '''returns the requesting user's icon so bot can use it
     '''
-    api_token = slackRequest.form['token']
+    api_token = slackRequest.headers['Bb-Slackbotaccesstoken']
     userid = slackRequest.form['user_id']
     url = 'https://slack.com/api/users.info'
     resp = requests.get(url, params={'token': api_token, 'user': userid})
