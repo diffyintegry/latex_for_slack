@@ -8,6 +8,18 @@ from imgurpython import ImgurClient
 logger = logging.getLogger(__name__)
 _latex_url = 'http://chart.apis.google.com/chart?cht=tx&chl={latex}'
 
+def get_usericon(slackRequest):
+    '''returns the requesting user's icon so bot can use it
+    '''
+    api_token = slackRequest.form['token']
+    userid = slackRequest.form['user_id']
+    url = 'https://slack.api/users/users.info'
+    resp = request.get(url, params={'token': api_token, 'user': userid})
+    logger.info('Response JSON: %s' % resp.json())
+    user_profile = response.json()['user']['profile']
+    logger.info('User Profile: %s' % user_profile)
+    icon = user_profile['image_48']
+    return icon
 
 def handle_images(slackRequest, latexString):
     ''' takes a latex string and uploads to imgur for the image
@@ -39,12 +51,14 @@ def process_request(slackRequest):
         image = handle_images(slackRequest, text)
         webhooksURL = slackRequest.headers['Bb-Config-Webhooks']
         username = slackRequest.form['user_name']
+        icon = get_usericon(slackRequest)
         #TODO: implement user avatar
 
         channel = slackRequest.form['channel_id']
         payload = {
                     'response_type': 'in_channel',
                     'username': username,
+                    'icon_url': icon,
                     'channel': channel,
                     'attachments': [
                         {
