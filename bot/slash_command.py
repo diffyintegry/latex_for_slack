@@ -39,9 +39,13 @@ def process_request(slackRequest):
         image = handle_images(slackRequest, text)
         webhooksURL = slackRequest.headers['Bb-Config-Webhooks']
         username = slackRequest.form['user_name']
+        #TODO: implement user avatar
+
+        channel = slackRequest.form['channel_id']
         payload = {
                     'response_type': 'in_channel',
                     'username': username,
+                    'channel': channel,
                     'attachments': [
                         {
                         'text': ' ',
