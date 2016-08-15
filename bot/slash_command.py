@@ -39,9 +39,10 @@ def process_request(slackRequest):
         payload = {
                     'response_type': 'in_channel',
                     'username': slackRequest.form['user_name'],
+                    'text': '<imgurLaTeX|%s>' % image,
                     'attachments': [
                         {
-                        'text': '<imgurLaTeX|%s>' % image,
+                        'text': ' ',
                         'fallback': text,
                         'image_url': image,
                         }
