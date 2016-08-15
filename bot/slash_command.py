@@ -9,11 +9,11 @@ logger = logging.getLogger(__name__)
 _latex_url = 'http://chart.apis.google.com/chart?cht=tx&chl={latex}'
 
 
-def handle_images(request, latexString):
+def handle_images(slackRequest, latexString):
     ''' takes a latex string and uploads to imgur for the image
     '''
-    imgurClientID = request.headers['Bb-Config-Imclid']
-    imgurSecret = request.headers['Bb-Config-Imsec']
+    imgurClientID = slackRequest.headers['Bb-Config-Imclid']
+    imgurSecret = slackRequest.headers['Bb-Config-Imsec']
     logger.info(imgurClientID + '....' + imgurSecret + ' ...')
 
     imgur = ImgurClient(imgurClientID, imgurSecret)
@@ -28,18 +28,20 @@ def handle_images(request, latexString):
     return latexImageLocation    
 
 
-def process_request(slackRequest):
+def process_slackRequest(slackRequest):
     correctToken = os.getenv('SLACK_VERIFY_TOKEN','')
     if slackRequest.method == 'POST' and slackRequest.form['token'] == correctToken:
-        logger.info(str(slackRequest.form))
+        # data logging
+        logger.info('POST form: %s' % slackRequest.form)
+        logger.info('POST headers: %s' % slackRequest.headers)
+        # data collection
         text = slackRequest.form['text']
-        logger.info(str(slackRequest.form))
-        image = str(handle_images(slackRequest, text))
-
+        image = handle_images(slackRequest, text)
+        webhooksURL = slackRequest.headers['Bb-Config-Webhooks']
+        username = slackRequest.form['user_name']
         payload = {
                     'response_type': 'in_channel',
-                    'username': slackRequest.form['user_name'],
-                    'text': '<imgurLaTeX|%s>' % image,
+                    'username': username,
                     'attachments': [
                         {
                         'text': ' ',
@@ -50,6 +52,6 @@ def process_request(slackRequest):
                     }
         logger.info(str(payload))
         headers = {'content-type':'application/json'}
-        requests.post(slackRequest.form['response_url'], data = json.dumps(payload), headers = headers)
+        requests.post(webhooksURL, data = json.dumps(payload), headers = headers)
 
 

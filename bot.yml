@@ -10,12 +10,16 @@ config:
     friendly_name: Imgur Client ID
     info: Need this to upload images
     default: IMANID
-    type: text
+    type: secret
   - name: IMSEC
     friendly_name: Imgur Client Secret
     info: Need this to upload images
     default: SECRET
-    type: text
+    type: secret
+  - name: WEBHOOKS
+    friendly_name: Incoming Webhook Url
+    info: Include this if you'd like the bot to post as a user
+    type: secret
 slackscopes:
   - bot
   - commands
