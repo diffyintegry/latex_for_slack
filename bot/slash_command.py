@@ -33,7 +33,7 @@ def handle_images(request, latexString):
 
 def process_request(request):
     correctToken = os.getenv('SLACK_VERIFY_TOKEN','')
-    logger.info(os.environ)
+    logger.info(str(request.headers))
     if request.method == 'POST' and request.form['token'] == correctToken:
         logger.info(str(request.form))
         text = request.form['text']
