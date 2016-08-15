@@ -13,7 +13,7 @@ def get_usericon(slackRequest):
     '''
     api_token = slackRequest.form['token']
     userid = slackRequest.form['user_id']
-    url = 'https://slack.api/users/users.info'
+    url = 'https://slack.com/api/users.info'
     resp = requests.get(url, params={'token': api_token, 'user': userid})
     logger.info('Response JSON: %s' % resp.json())
     user_profile = response.json()['user']['profile']
