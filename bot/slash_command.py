@@ -16,7 +16,7 @@ def get_usericon(slackRequest):
     url = 'https://slack.com/api/users.info'
     resp = requests.get(url, params={'token': api_token, 'user': userid})
     logger.info('Response JSON: %s' % resp.json())
-    user_profile = response.json()['user']['profile']
+    user_profile = resp.json()['user']['profile']
     logger.info('User Profile: %s' % user_profile)
     icon = user_profile['image_48']
     return icon
