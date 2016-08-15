@@ -60,6 +60,7 @@ def process_request(slackRequest):
                     'username': username,
                     'icon_url': icon,
                     'channel': channel,
+                    'text': '/latex %s' % text,
                     'attachments': [
                         {
                         'text': ' ',
