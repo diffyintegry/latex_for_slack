@@ -28,7 +28,7 @@ def handle_images(slackRequest, latexString):
     return latexImageLocation    
 
 
-def process_slackRequest(slackRequest):
+def process_request(slackRequest):
     correctToken = os.getenv('SLACK_VERIFY_TOKEN','')
     if slackRequest.method == 'POST' and slackRequest.form['token'] == correctToken:
         # data logging
