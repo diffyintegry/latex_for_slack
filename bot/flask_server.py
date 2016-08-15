@@ -15,7 +15,7 @@ flaskApp = Flask(__name__)
     
 
 
-@flaskApp.route("/slack/command", methods = ['GET','POST'])
+@flaskApp.route('/slack/command', methods = ['GET','POST'])
 def temp():
     try:
         slash_command.process_request(request)
@@ -27,10 +27,10 @@ def temp():
 
 
 if __name__ == '__main__':
-    log_level = os.getenv("LOG_LEVEL", "INFO")
+    log_level = os.getenv('LOG_LEVEL', 'INFO')
     logging.basicConfig(format='%(asctime)s - %(levelname)s: %(message)s',
                          level=log_level)
-    port = os.getenv("PORT","8080") 
-    flaskApp.run(host = '0.0.0.0', port=port)
+    port = os.getenv('PORT','8080') 
+    flaskApp.run(host='0.0.0.0', port=port)
     
 

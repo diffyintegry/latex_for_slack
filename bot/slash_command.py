@@ -3,12 +3,9 @@ import base64
 import requests
 import json
 import logging
-
 from imgurpython import ImgurClient
 
 logger = logging.getLogger(__name__)
-
-
 _latex_url = 'http://chart.apis.google.com/chart?cht=tx&chl={latex}'
 
 
@@ -17,7 +14,7 @@ def handle_images(request, latexString):
     '''
     imgurClientID = request.headers['Bb-Config-Imclid']
     imgurSecret = request.headers['Bb-Config-Imsec']
-    logger.info(imgurClientID + "...." + imgurSecret + ' ...')
+    logger.info(imgurClientID + '....' + imgurSecret + ' ...')
 
     imgur = ImgurClient(imgurClientID, imgurSecret)
     latexImageDownload = _latex_url.format(latex = latexString.replace(' ','').replace('+','%2B'))
@@ -31,18 +28,18 @@ def handle_images(request, latexString):
     return latexImageLocation    
 
 
-def process_request(request):
+def process_request(slackRequest):
     correctToken = os.getenv('SLACK_VERIFY_TOKEN','')
-    logger.info(str(request.headers))
-    if request.method == 'POST' and request.form['token'] == correctToken:
-        logger.info(str(request.form))
-        text = request.form['text']
-        logger.info(str(request.form))
-        image = str(handle_images(request, text))
+    if slackRequest.method == 'POST' and slackRequest.form['token'] == correctToken:
+        logger.info(str(slackRequest.form))
+        text = slackRequest.form['text']
+        logger.info(str(slackRequest.form))
+        image = str(handle_images(slackRequest, text))
+
         payload = {
-                    'response_type':'in_channel',
-                    'username':request.form['user_name'],
-                    'attachments':[
+                    'response_type': 'in_channel',
+                    'username': slackRequest.form['user_name'],
+                    'attachments': [
                         {
                         'text': '<imgurLaTeX|%s>' % image,
                         'fallback': text,
@@ -52,7 +49,6 @@ def process_request(request):
                     }
         logger.info(str(payload))
         headers = {'content-type':'application/json'}
-        requests.post(request.form['response_url'], data = json.dumps(payload), headers = headers)
-
+        requests.post(slackRequest.form['response_url'], data = json.dumps(payload), headers = headers)
 
 
