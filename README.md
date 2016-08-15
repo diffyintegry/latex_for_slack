@@ -1,6 +1,8 @@
 LaTeX-python-bot for Slack
 =============
 
+![LaTeXbot Demonstration](/resources/showoff.gif)
+
 ## Overview
 This is a bot by [Nick](mailto:nicholas.comment+latexbot@gmail.com) designed to work with BeepBoop.  Could be hosted elsewhere, as well, but edits to the ImgurClient sections will be necessary.  
 
