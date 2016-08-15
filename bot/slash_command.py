@@ -33,7 +33,7 @@ def handle_images(request, latexString):
 
 def process_request(request):
     correctToken = os.getenv('SLACK_VERIFY_TOKEN','')
-
+    logger.info(os.environ)
     if request.method == 'POST' and request.form['token'] == correctToken:
         logger.info(str(request.form))
         text = request.form['text']
@@ -44,7 +44,7 @@ def process_request(request):
                     'username':request.form['user_name'],
                     'attachments':[
                         {
-                        'text': '<imgurLaTeX|%s>' & image,
+                        'text': '<imgurLaTeX|%s>' % image,
                         'fallback': text,
                         'image_url': image,
                         }
