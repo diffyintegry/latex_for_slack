@@ -16,5 +16,9 @@ config:
     info: Need this to upload images
     default: SECRET
     type: text
+slackscopes:
+  - bot
+  - commands
+  - incoming-webhook
 screenshots:
   - screenshot: resources/screenshot.1.png

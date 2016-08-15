@@ -17,7 +17,7 @@ def handle_images(request, latexString):
     logger.info(imgurClientID + '....' + imgurSecret + ' ...')
 
     imgur = ImgurClient(imgurClientID, imgurSecret)
-    latexImageDownload = _latex_url.format(latex = latexString.replace(' ',''))
+    latexImageDownload = _latex_url.format(latex = latexString.replace(' ','').replace('+','%2B'))
     latexImage = requests.get(latexImageDownload).content
     data = {
             'image': base64.b64encode(latexImage),
@@ -30,18 +30,18 @@ def handle_images(request, latexString):
 
 def process_request(slackRequest):
     correctToken = os.getenv('SLACK_VERIFY_TOKEN','')
-
     if slackRequest.method == 'POST' and slackRequest.form['token'] == correctToken:
         logger.info(str(slackRequest.form))
         text = slackRequest.form['text']
         logger.info(str(slackRequest.form))
         image = str(handle_images(slackRequest, text))
+
         payload = {
                     'response_type': 'in_channel',
                     'username': slackRequest.form['user_name'],
                     'attachments': [
                         {
-                        'text': '<imgurLaTeX|%s>' & image,
+                        'text': '<imgurLaTeX|%s>' % image,
                         'fallback': text,
                         'image_url': image,
                         }
